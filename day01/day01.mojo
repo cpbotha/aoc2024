@@ -1,3 +1,6 @@
+# DISCLAIMER: utter Mojo newbie at work here. Happy to receive your tips and tricks either as github issues, or on my
+# bluesky https://bsky.app/profile/charlbotha.com
+
 from collections import Counter
 from testing import assert_true
 from time import perf_counter_ns
