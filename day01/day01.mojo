@@ -23,14 +23,18 @@ fn parse_columns(contents: String) raises -> Tuple[List[Int], List[Int]]:
     return (col1, col2)
 
 
-fn main() raises:
-    var contents = read_file("input.txt")
-    (col1, col2) = parse_columns(contents)
-
+fn part2(col1: List[Int], col2: List[Int]) raises -> Int:
     var counter = Counter[Int](col2)
     # iterate over col1, get the count of each element from col2
     var sum = 0
     for x in col1:
         sum += x[] * counter[x[]]
 
-    print(sum)
+    return sum
+
+
+fn main() raises:
+    var contents = read_file("input.txt")
+    (col1, col2) = parse_columns(contents)
+
+    print(part2(col1, col2))
