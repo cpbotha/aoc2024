@@ -27,4 +27,5 @@ print(sum(dists))
 from collections import Counter
 
 c = Counter(lists[1])
+# 23117829
 print(sum([e * c[e] for e in lists[0]]))
