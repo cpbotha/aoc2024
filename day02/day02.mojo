@@ -33,7 +33,9 @@ fn pad_check_bool_simd(bool_vec: SIMD[DType.bool, 8], nelts: Int) raises -> Bool
     for i in range(nelts, 8):
         _bool_vec[i] = True
 
-    return _bool_vec.reduce_and()
+    # thanks to rd4com on the Mojo discord for the "all()" suggestion. My .reduce_and() was working, but is not as pretty as all()
+    #return _bool_vec.reduce_and()
+    return all(_bool_vec)
 
 # nelts == number of deltas, which is one less than the number of elements
 fn is_safe(s: SIMD[DType.int32, 8], nelts: Int) raises -> Bool:
