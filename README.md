@@ -2,6 +2,8 @@ I am definitely not taking part this year.
 
 This project contains solutions (maybe only 1) in Python and pure Mojo (as far as possible).
 
+There might be some accompanying [bluesky posts by me on this topic](https://bsky.app/hashtag/AdventOfCode?author=charlbotha.com).
+
 ## General Mojo
 
 It is unfortunate that the `.magic` environments subdir, 2.5GB and 27900 files (!!) for the default nightly project init, is hardcoded to live under the source dir.
