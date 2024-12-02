@@ -41,6 +41,13 @@ fn is_safe(s: SIMD[DType.int32, 8], nelts: Int) raises -> Bool:
 
     return (pad_check_bool_simd(delta < 0, nelts) or pad_check_bool_simd(delta > 0, nelts)) and pad_check_bool_simd(abs(delta) <= 3, nelts) and pad_check_bool_simd(abs(delta) >= 1, nelts)
 
+fn to_simd(parts: List[String]) raises -> SIMD[DType.int32, 8]:
+    var s = SIMD[DType.int32, 8]()
+    for i in range(len(parts)):
+        s[i] = atol(parts[i])
+
+    return s
+
 fn part1(contents: String) raises -> Int:
     var lines = contents.strip().split("\n")
     var sum = 0
@@ -49,9 +56,7 @@ fn part1(contents: String) raises -> Int:
         # https://docs.modular.com/mojo/manual/control-flow#iterating-over-mojo-collections
         var parts = line[].split()
         # convert to 8-element SIMD, but we only use the first N
-        var s = SIMD[DType.int32, 8]()
-        for i in range(len(parts)):
-            s[i] = atol(parts[i])
+        s = to_simd(parts)
 
         if is_safe(s, len(parts)-1):
             sum += 1
@@ -61,7 +66,39 @@ fn part1(contents: String) raises -> Int:
     return sum 
 
 
+fn part2(contents: String) raises -> Int:
+    var lines = contents.strip().split("\n")
+    var sum = 0
+    for line in lines:
+        # mojo list limitation: iterating over the list returns a pointer to each elem which we have to deref here
+        # https://docs.modular.com/mojo/manual/control-flow#iterating-over-mojo-collections
+        var parts = line[].split()
+        # convert to 8-element SIMD, but we only use the first N
+        var s = to_simd(parts)
+        for i in range(len(parts)):
+            s[i] = atol(parts[i])
+
+        if is_safe(s, len(parts)-1):
+            sum += 1
+
+        else:
+            for j in range(len(parts)):
+                new_parts = List(other=parts)
+                _ = new_parts.pop(j)
+                if is_safe(to_simd(new_parts), len(new_parts)-1):
+                    sum += 1
+                    break
+
+
+
+    return sum 
+
 fn main() raises:
     var contents = read_file("input.txt")
     p1 = part1(contents)
+    # 421
     print(p1)
+
+    p2 = part2(contents)
+    # 476
+    print(p2)
