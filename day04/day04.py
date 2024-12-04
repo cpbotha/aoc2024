@@ -6,7 +6,6 @@
 # %%
 
 from pathlib import Path
-import re
 
 fn = Path(__file__).parent / "input.txt"
 lines = fn.read_text().strip().split("\n")
@@ -21,7 +20,7 @@ def sample_word(r, c, dir: tuple[int, int], length=4):
     chars = []
     for _ in range(length):
         if r < 0 or c < 0 or r >= len(lines) or c >= len(lines[0]):
-            # we needed one more char, but were out of bounds, so no word
+            # we needed another char, but were out of bounds, so no word
             return None
 
         chars.append(lines[r][c])
@@ -40,6 +39,7 @@ for r in range(len(lines)):
                 if word == "XMAS":
                     num += 1
 
+# 2414
 print(num)
 
 # %% part 2
@@ -58,4 +58,5 @@ for r in range(len(lines)):
                     centre_count[(r + dir[0], c + dir[1])] += 1
 
 # how many A positions have 2 occurrences
+# 1871
 print(sum([1 for v in centre_count.values() if v == 2]))
