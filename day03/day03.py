@@ -2,8 +2,6 @@
 
 # %% parse the input
 from pathlib import Path
-from time import perf_counter_ns
-import numpy as np
 import re
 
 fn = Path(__file__).parent / "input.txt"
