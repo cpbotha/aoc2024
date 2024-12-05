@@ -7,23 +7,18 @@
 
 from functools import cmp_to_key
 from pathlib import Path
+from collections import defaultdict
 
 fn = Path(__file__).parent / "input.txt"
 b1, b2 = fn.read_text().strip().split("\n\n")
 
-# for each line, record that prev must be before next, but also that next must be after prev
-# as we want to be able to look up the relationship from any side
-after_me = {}
-before_me = {}
+# for each line, record that prev must be before next, but also that next must be after prev as we want to be able to
+# look up the relationship from any side
+after_me = defaultdict(list)
+before_me = defaultdict(list)
 for l in b1.split("\n"):
-    # not necessary to cast to int
-    # p, n = [int(e) for e in l.split("|")]
     p, n = l.split("|")
-    if p not in after_me:
-        after_me[p] = []
     after_me[p].append(n)
-    if n not in before_me:
-        before_me[n] = []
     before_me[n].append(p)
 
 
