@@ -5,7 +5,9 @@
 # %%
 
 from collections import Counter
+import os
 from pathlib import Path
+from joblib import Parallel, delayed
 
 fn = Path(__file__).parent / "input.txt"
 
@@ -46,7 +48,9 @@ def step(gpos, gvec, o, dirs):
         return 0, gpos, gvec
 
     gpos = cand_pos
+
     if dirs.get(gpos) == gvec:
+        # loop detected!
         return -1, gpos, gvec
 
     o[gpos] = "X"
@@ -68,23 +72,41 @@ print(c["X"])
 # we can only insert obstacle on guard's known route (4000ish checks)
 # for each of these candidate obstacles, we have to detect loops
 
-num_loops = 0
-for pos in o:
-    if o[pos] == "X":
-        check_o = o_orig.copy()
-        # install obstacle
-        check_o[pos] = "O"
-        # reset guard
-        gpos = gpos_orig
-        gvec = gvec_orig.copy()
 
-        # check if we get -1
-        ret = 0
-        dirs = {}
-        while ret == 0:
-            ret, gpos, gvec = step(gpos, gvec, check_o, dirs)
+def run_whole_thing(pos):
+    check_o = o_orig.copy()
+    # install obstacle
+    check_o[pos] = "O"
+    # reset guard
+    gpos = gpos_orig
+    gvec = gvec_orig.copy()
 
-        if ret == -1:
-            num_loops += 1
+    # check if we get -1
+    ret = 0
+    dirs = {}
+    while ret == 0:
+        ret, gpos, gvec = step(gpos, gvec, check_o, dirs)
 
+    return ret
+
+
+# 12/24 ryzen 5900x is marginally faster with 24 jobs than 12
+N_JOBS = int(os.environ.get("N_JOBS", 1))
+if N_JOBS > 1:
+    print(f"Running with {N_JOBS} jobs")
+    cands = [pos for pos in o if o[pos] == "X"]
+    rets = Parallel(n_jobs=N_JOBS)(delayed(run_whole_thing)(pos) for pos in cands)
+    # count rets == -1
+    num_loops = sum(ret == -1 for ret in rets)
+
+else:
+    num_loops = 0
+    for pos in o:
+        if o[pos] == "X":
+            ret = run_whole_thing(pos)
+            if ret == -1:
+                num_loops += 1
+
+
+# 1434
 print(num_loops)
