@@ -1,6 +1,7 @@
 # part 1: 7:25 - 8:05
-# part 2: EEEEKE
+# part 2: EEEEKE :) submitted at 8:45 with stuff in between
 
+# not 100% happy with my code, but it does the trick and not too badly
 # %%
 
 from collections import Counter
