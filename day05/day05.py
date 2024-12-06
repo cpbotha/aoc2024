@@ -1,7 +1,6 @@
-# opened day 05 problem at about 7:30 but knew would not have much time to work on this
-# because of household logistics
-# p1 submitted 8:24 but had to go for my Thursday morning run - p2 sorting solution came up during run
-# 10:30 at work after first meeting could start implementing p2, submitted at 10:40
+# - opened day 05 problem at about 7:30 but knew would not have much time to work on this because of household logistics
+# - p1 submitted 8:24 but had to go for my Thursday morning run - p2 sorting solution came up during run
+# - 10:30 at work after first meeting could start implementing p2, submitted at 10:40
 
 # %%
 
