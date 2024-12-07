@@ -58,5 +58,5 @@ p1sum = sum([tvo[0] for tvo in valid_eqns])
 # p2: 492383931650959
 # python 3.13: 8.5 secs single process, 2.264 secs with 8 processes (m1max)
 # pypy 3.10: 1.776 secs single process, 2 secs with 8 processes (m1max)
+# timings are using unix time command, so include loading file, parsing, pypy warmup, etc.
 print(p1sum)
-# %%
