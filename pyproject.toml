@@ -3,7 +3,9 @@ name = "aoc2024"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.13"
+#requires-python = ">=3.13"
+# for pypy (uv run --python pypy python dayxx.py)
+requires-python = ">=3.10"
 dependencies = [
     "ipykernel>=6.29.5",
     "joblib>=1.4.2",

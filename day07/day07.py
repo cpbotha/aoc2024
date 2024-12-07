@@ -47,9 +47,16 @@ def check_eqn(tvo):
     return False
 
 
-valid_eqns = [tvo for tvo in eqns if check_eqn(tvo)]
+if False:
+    valid_eqns = [tvo for tvo in eqns if check_eqn(tvo)]
+else:
+    checked = Parallel(n_jobs=-1)(delayed(check_eqn)(tvo) for tvo in eqns)
+    valid_eqns = [tvo for tvo, c in zip(eqns, checked) if c]
+
 p1sum = sum([tvo[0] for tvo in valid_eqns])
 # p1: 5837374519342
-# p2: 492383931650959 in 8.5 secs
+# p2: 492383931650959
+# python 3.13: 8.5 secs single process, 2.264 secs with 8 processes (m1max)
+# pypy 3.10: 1.776 secs single process, 2 secs with 8 processes (m1max)
 print(p1sum)
 # %%
