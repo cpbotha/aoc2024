@@ -47,7 +47,7 @@ def check_eqn(tvo):
     return False
 
 
-if False:
+if True:
     valid_eqns = [tvo for tvo in eqns if check_eqn(tvo)]
 else:
     checked = Parallel(n_jobs=-1)(delayed(check_eqn)(tvo) for tvo in eqns)
