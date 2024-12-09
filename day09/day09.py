@@ -42,7 +42,7 @@ first_space = map.index(-1)
 
 def find_last_block_idx(start_pos):
     # iterate in reverse from start_pos, find first positive integer
-    for i in range(start_pos, -1, -1):  # WHOOPS! I was ignoring start_pos. Now fixed, Python 3.13 total > 1s
+    for i in range(start_pos, -1, -1):  # WHOOPS! I was ignoring start_pos. Now fixed, Python 3.13 total < 1s
         if map[i] != -1:
             return i
 
