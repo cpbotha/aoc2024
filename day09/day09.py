@@ -13,7 +13,6 @@
 # %%
 from pathlib import Path
 
-# there are duplicate test values in the full input
 fn = Path(__file__).parent / "input.txt"
 line = fn.read_text().strip()
 
@@ -30,11 +29,13 @@ for bi, b in enumerate(line):
         block_spans[block_id] = (len(map), int(b))  # part 2: block_id -> (start, length)
         map.extend([int(block_id) for _ in range(int(b))])
     else:
-        space_spans.append((len(map), int(b)))
+        space_spans.append((len(map), int(b)))  # part 2: (start, length)
         map.extend([-1 for _ in range(int(b))])
 
 # highest block_id 9999
 print(f"highest block_id: {max(block_spans.keys())}")
+
+# %% part 1 - array of block ids and -1 for spaces
 
 # keep track of this to reduce searching
 first_space = map.index(-1)
@@ -60,7 +61,6 @@ def find_next_space(start_pos):
 last_block = find_last_block_idx(len(map) - 1)
 
 
-# %% part 1 takes > 10 seconds with python 3.13, < 2s with pypy
 def part1(first_space, last_block):
     while first_space < last_block:
         map[first_space] = map[last_block]
@@ -80,7 +80,7 @@ def part1(first_space, last_block):
 checksum = part1(first_space, last_block)
 print(checksum)
 
-# %% part 2
+# %% part 2 - block_spans and space_spans
 
 # for block_id, (bidx, blen) in reversed(block_spans.items()):
 for block_id in range(max(block_spans.keys()), -1, -1):
