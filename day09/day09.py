@@ -2,9 +2,9 @@
 # file-blocks are numbered 0 .. N
 
 # thanks pypy!
-# uv run python day09.py  0.60s user 0.03s system 99% cpu 0.629 total
+# uv run --python pypy python day09.py  0.07s user 0.02s system 97% cpu 0.086 total
 # with python 3.13
-# uv run --python 3.13 python day09.py  14.03s user 0.51s system 99% cpu 14.616 total
+# uv run --python 3.13 python day09.py  0.51s user 0.04s system 99% cpu 0.553 total
 # (of which most is part 1)
 
 # %%
@@ -42,11 +42,11 @@ first_space = map.index(-1)
 
 def find_last_block_idx(start_pos):
     # iterate in reverse from start_pos, find first positive integer
-    for i in range(len(map) - 1, -1, -1):
+    for i in range(start_pos, -1, -1):  # WHOOPS! I was ignoring start_pos. Now fixed, Python 3.13 total > 1s
         if map[i] != -1:
             return i
 
-    return 99999999999999
+    raise RuntimeError("no block found")
 
 
 def find_next_space(start_pos):
@@ -54,7 +54,7 @@ def find_next_space(start_pos):
         if map[i] == -1:
             return i
 
-    return 99999999999999
+    raise RuntimeError("no space found")
 
 
 last_block = find_last_block_idx(len(map) - 1)
