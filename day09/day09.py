@@ -5,13 +5,13 @@
 # uv run --python pypy python day09.py  0.07s user 0.02s system 97% cpu 0.086 total
 # with python 3.13
 # uv run --python 3.13 python day09.py  0.51s user 0.04s system 99% cpu 0.553 total
-# (of which most is part 1)
+
+# thoughts afterwards:
+# ended well, but bummed that I initially missed the only-move-to-left constraint of p2
+# happy to discover by accident a small bug in my working P1 solution that made it much slower, now fast (enough)!
 
 # %%
-from collections import defaultdict
 from pathlib import Path
-from itertools import product
-from operator import itemgetter
 
 # there are duplicate test values in the full input
 fn = Path(__file__).parent / "input.txt"
